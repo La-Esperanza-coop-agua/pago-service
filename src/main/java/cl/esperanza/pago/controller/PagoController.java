@@ -1,10 +1,12 @@
 package cl.esperanza.pago.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import cl.esperanza.pago.model.Pago;
 import cl.esperanza.pago.service.PagoService;
+import cl.esperanza.pago.dto.CreatePagoRequest;
 
 import java.util.List;
 
@@ -20,23 +22,18 @@ public class PagoController {
 
     @GetMapping("/socio/{run}")
     public ResponseEntity<List<Pago>> getPagosPorSocio(@PathVariable String run) {
-        List<Pago> pagos = pagoService.obtenerPagosPorRun(run);
-        return ResponseEntity.ok(pagos);
+        return ResponseEntity.ok(pagoService.obtenerPagosPorRun(run));
     }
 
     @PostMapping("/emitir")
-    public ResponseEntity<Pago> emitirNuevaBoleta(@RequestBody Pago pago) {
-        Pago nuevaBoleta = pagoService.emitirBoleta(pago);
+    public ResponseEntity<Pago> emitirNuevaBoleta(@Valid @RequestBody CreatePagoRequest request) {
+        Pago nuevaBoleta = pagoService.emitirBoleta(request.toEntity());
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaBoleta);
     }
 
     @PutMapping("/{id}/pagar")
     public ResponseEntity<Pago> registrarPago(@PathVariable Integer id) {
         Pago pagoActualizado = pagoService.pagarBoleta(id);
-        
-        if (pagoActualizado != null) {
-            return ResponseEntity.ok(pagoActualizado);
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(pagoActualizado);
     }
 }

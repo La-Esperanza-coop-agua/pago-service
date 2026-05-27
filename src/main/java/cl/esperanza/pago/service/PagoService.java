@@ -3,8 +3,8 @@ package cl.esperanza.pago.service;
 import org.springframework.stereotype.Service;
 import cl.esperanza.pago.model.Pago;
 import cl.esperanza.pago.repository.PagoRepository;
+import cl.esperanza.pago.exception.ResourceNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PagoService {
@@ -20,18 +20,14 @@ public class PagoService {
     }
 
     public Pago emitirBoleta(Pago pago) {
-        pago.setEstado("PENDIENTE");
         return pagoRepo.save(pago);
     }
 
     public Pago pagarBoleta(Integer idPago) {
-        Optional<Pago> pagoOpcional = pagoRepo.findById(idPago);
+        Pago pago = pagoRepo.findById(idPago)
+            .orElseThrow(() -> new ResourceNotFoundException("No se encontró la boleta con el ID: " + idPago));
         
-        if (pagoOpcional.isPresent()) {
-            Pago pago = pagoOpcional.get();
-            pago.setEstado("PAGADO");
-            return pagoRepo.save(pago);
-        }
-        return null;
+        pago.setEstado("PAGADO");
+        return pagoRepo.save(pago);
     }
 }
