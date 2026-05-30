@@ -11,7 +11,7 @@ public class WebClientConfig {
     public WebClient facturacionWebClient() {
         // Apuntamos directo al puerto 8083 de Facturación
         return WebClient.builder()
-                .baseUrl("http://localhost:8083/api/v1/facturacion")
+                .baseUrl("http://localhost:8080/api/v1/facturacion")
                 .build();
     }
 }

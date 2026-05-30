@@ -36,4 +36,11 @@ public class PagoController {
         Pago pagoActualizado = pagoService.pagarBoleta(id);
         return ResponseEntity.ok(pagoActualizado);
     }
+
+    @GetMapping("/total-recaudado")
+        public ResponseEntity<Double> getTotalRecaudado() {
+        return ResponseEntity.ok(pagoService.obtenerTotalRecaudado());
+    }
+
+
 }

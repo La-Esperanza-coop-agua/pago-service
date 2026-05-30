@@ -61,4 +61,9 @@ public class PagoService {
         pago.setEstado("PAGADO");
         return pagoRepo.save(pago);
     }
+
+    // === Este método conecta el puente con reporte-service para entregar los ingresos ===
+    public double obtenerTotalRecaudado() {
+        return pagoRepo.sumTotalRecaudado();
+    }
 }
