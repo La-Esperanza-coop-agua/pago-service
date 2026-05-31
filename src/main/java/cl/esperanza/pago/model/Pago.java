@@ -17,7 +17,7 @@ public class Pago {
     private Integer id;
 
     @Column(nullable = false, length = 13)
-    private String runSocio; 
+    private String runSocio;
 
     @Column(nullable = false)
     private double monto;
@@ -29,5 +29,5 @@ public class Pago {
     private LocalDate fechaVencimiento;
 
     @Column(nullable = false)
-    private String estado; 
+    private String estado;
 }

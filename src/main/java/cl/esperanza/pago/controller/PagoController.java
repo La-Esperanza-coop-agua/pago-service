@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import cl.esperanza.pago.model.Pago;
 import cl.esperanza.pago.service.PagoService;
 import cl.esperanza.pago.dto.CreatePagoRequest;
+import cl.esperanza.pago.mapper.PagoMapper;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class PagoController {
 
     @PostMapping("/emitir")
     public ResponseEntity<Pago> emitirNuevaBoleta(@Valid @RequestBody CreatePagoRequest request) {
-        Pago nuevaBoleta = pagoService.emitirBoleta(request.toEntity());
+        Pago nuevaBoleta = pagoService.emitirBoleta(PagoMapper.toModel(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaBoleta);
     }
 
@@ -36,11 +37,4 @@ public class PagoController {
         Pago pagoActualizado = pagoService.pagarBoleta(id);
         return ResponseEntity.ok(pagoActualizado);
     }
-
-    @GetMapping("/total-recaudado")
-        public ResponseEntity<Double> getTotalRecaudado() {
-        return ResponseEntity.ok(pagoService.obtenerTotalRecaudado());
-    }
-
-
 }

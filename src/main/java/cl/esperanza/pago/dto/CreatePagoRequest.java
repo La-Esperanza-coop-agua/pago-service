@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import cl.esperanza.pago.model.Pago;
 import java.time.LocalDate;
 
 public record CreatePagoRequest(
@@ -20,14 +19,4 @@ public record CreatePagoRequest(
     @NotNull(message = "La fecha de vencimiento es obligatoria")
     @Future(message = "La fecha de vencimiento debe estar en el futuro")
     LocalDate fechaVencimiento
-) {
-    public Pago toEntity() {
-        Pago pago = new Pago();
-        pago.setRunSocio(this.runSocio());
-        pago.setMonto(this.monto());
-        pago.setFechaEmision(this.fechaEmision());
-        pago.setFechaVencimiento(this.fechaVencimiento());
-        pago.setEstado("PENDIENTE");
-        return pago;
-    }
-}
+) {}
