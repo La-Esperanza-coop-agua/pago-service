@@ -9,9 +9,6 @@ public class WebClientConfig {
 
     @Bean
     public WebClient facturacionWebClient() {
-        // Apuntamos directo al puerto 8083 de Facturación
-        return WebClient.builder()
-                .baseUrl("http://localhost:8080/api/v1/facturacion")
-                .build();
+        return WebClient.builder().baseUrl("http://localhost:8083/api/v1/facturacion").build();
     }
 }

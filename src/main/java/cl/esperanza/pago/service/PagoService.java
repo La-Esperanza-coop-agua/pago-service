@@ -1,19 +1,21 @@
 package cl.esperanza.pago.service;
 
-import org.springframework.stereotype.Service;
-import cl.esperanza.pago.model.Pago;
-import cl.esperanza.pago.repository.PagoRepository;
-import cl.esperanza.pago.exception.ResourceNotFoundException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import cl.esperanza.pago.exception.ResourceNotFoundException;
+import cl.esperanza.pago.model.Pago;
+import cl.esperanza.pago.repository.PagoRepository;
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class PagoService {
 
-    private final PagoRepository pagoRepo;
-
-    public PagoService(PagoRepository pagoRepo) {
-        this.pagoRepo = pagoRepo;
-    }
+    @Autowired
+    private PagoRepository pagoRepo;
 
     public List<Pago> obtenerPagosPorRun(String run) {
         return pagoRepo.findByRunSocio(run);

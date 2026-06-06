@@ -1,18 +1,25 @@
 package cl.esperanza.pago.controller;
 
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import cl.esperanza.pago.model.Pago;
-import cl.esperanza.pago.service.PagoService;
-import cl.esperanza.pago.dto.CreatePagoRequest;
-import cl.esperanza.pago.mapper.PagoMapper;
-
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import cl.esperanza.pago.dto.CreatePagoRequest;
+import cl.esperanza.pago.mapper.PagoMapper;
+import cl.esperanza.pago.model.Pago;
+import cl.esperanza.pago.service.PagoService;
+import jakarta.validation.Valid;
+
 @RestController
-@RequestMapping("/api/v1/pago")
+@RequestMapping("/api/v1/pagos")
 public class PagoController {
     
     private final PagoService pagoService;
