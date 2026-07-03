@@ -32,4 +32,16 @@ public class PagoService {
         pago.setEstado("PAGADO");
         return pagoRepo.save(pago);
     }
+
+    public Double obtenerTotalRecaudado() {
+        List<Pago> todosLosPagos = pagoRepo.findAll();
+        double totalRecaudado = 0.0;
+
+        for (Pago pago : todosLosPagos) {
+            if ("PAGADO".equalsIgnoreCase(pago.getEstado())) {
+                totalRecaudado = totalRecaudado + pago.getMonto();
+            }
+        }
+        return totalRecaudado;
+    }
 }
